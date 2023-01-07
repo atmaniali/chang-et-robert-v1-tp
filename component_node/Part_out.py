@@ -38,17 +38,16 @@ class Part_Out(threading.Thread):
             data_as_dict = vars(self.elec.message)
             # Serialize your dict object
             data_string = json.dumps(data_as_dict)
-
+            
+            self.__flag.wait()
             print(f"Send Message {data_string} ")
             if self.elec.message.id_elect == self.elec.leader_id :
                 self.count += 1
-                print(f"count {self.count}")
-            if self.count  == 20:
+                # print(f"count {self.count}")
+            if self.count  == 10:
                 print(f"Leader is {self.elec.leader_id} port = {self.elec.leader_port}")
                 # self.s.send(b'')
                 break   
-            
-            self.__flag.wait()
             self.s.send(data_string.encode(encoding="utf-8"))
             self.__flag.clear()
 
