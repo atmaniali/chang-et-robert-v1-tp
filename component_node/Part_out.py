@@ -4,6 +4,7 @@ HOST = "127.0.0.1"
 
 
 class Part_Out(threading.Thread):
+
     def __init__(self, E):
         threading.Thread.__init__(self)
         # initialiser le port du noud voisin
@@ -41,14 +42,13 @@ class Part_Out(threading.Thread):
             
             self.__flag.wait()
             print(f"Send Message {data_string} ")
-            if self.elec.message.id_elect == self.elec.leader_id :
-                self.count += 1
-                # print(f"count {self.count}")
-            if self.count  == 10:
-                print(f"Leader is {self.elec.leader_id} port = {self.elec.leader_port}")
-                # self.s.send(b'')
+            if self.elec.message.id_elect == self.elec.leader_id : # verifie if id message arrive is the same of id of Elec
+                self.count += 1 # counter to update 
+            if self.count  == 10: 
+                print(f"Leader is {self.elec.leader_id} port = {self.elec.leader_port}") # show result of algorithm    
                 break   
-            self.s.send(data_string.encode(encoding="utf-8"))
+
+            self.s.send(data_string.encode(encoding="utf-8")) # semd message
             self.__flag.clear()
 
     def resume(self):

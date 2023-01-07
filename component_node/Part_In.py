@@ -8,26 +8,29 @@ HOST = "127.0.0.1"
 def Handle_Neighbor(connexion, add, t, Sortie):
     
 
-    while True:
-        if t == 1 :  
-            input("Vous avez provquer une election \n")
+    while True: 
+        if t == 1 :  # the node provoque election algorithm
+            input("Vous avez provquer une election cliquer entre pour continue l'execution \n")
             t = 0  
 
-        msg = connexion.recv(4096)
+        msg = connexion.recv(4096) 
         if not msg:
-            print("no msg")
+            print("no message \n")
             break
-        data_string = msg.decode(encoding="utf-8")
+        data_string = msg.decode(encoding="utf-8") # server receve message 
 
-        data_variable = json.loads(data_string)
         # data_variable is a dict representing your sent object
+        data_variable = json.loads(data_string) 
+        # extract value
         id_elect = data_variable["id_elect"]
         port_elect = data_variable["port_elect"]
-        message = Message()
+
+        message = Message() # create new instance of Message
         message.id_elect = id_elect
         message.port_elect = port_elect
-        Sortie.elec.message = message
-        Sortie.elec.recev_mess()
+
+        Sortie.elec.message = message # execute function of election
+        Sortie.elec.recev_mess() # update variable of message in elec object
         
         Sortie.resume()    
          

@@ -7,6 +7,7 @@ from Checking import *
 
 
 class Node:
+
     def __init__(self, port, token):
 
         self.id = random.randint(1, 10_000)  # Id node
@@ -15,15 +16,15 @@ class Node:
 
     def main(self):
 
-        remove_file()
+        remove_file() # function to remove file 
 
-        mess = Message()
-        mess.id_elect = self.id
-        mess.port_elect = self.PORT_In
+        mess = Message() # create instance of Message
+        mess.id_elect = self.id # 
+        mess.port_elect = self.PORT_In # 
 
         print(f"Node of ID = {self.id} PORT = {self.PORT_In}")
 
-        elec = Elect(mess)
+        elec = Elect(mess) # create instance of Elect
 
         # lancer un thread pour Part_out
         Sd_Out = Part_Out(elec)
@@ -34,16 +35,17 @@ class Node:
 
         while True :
             port = (input("Numero de port du voisin \n"))
-            is_int = verif_type_Port(port)
+            is_int = verif_type_Port(port) # function to verifie if input is number
 
             if is_int == False :
                 print("Numero de port du voisin est un entier \n")
                 print("Ressayer svp \n")
             else :
                 port_next_Neighbor = int(port)
-                port_in = verif_PORT_In_List(port_next_Neighbor) 
+                port_in = verif_PORT_In_List(port_next_Neighbor) # verifie if port number not used by other node
+
                 if port_in == False :
-                    add_Port_List(port_next_Neighbor)
+                    add_Port_List(port_next_Neighbor) # add port in file
                     break
                 print("Port est attacher a un notre node")
                 print("Ressayer svp \n")

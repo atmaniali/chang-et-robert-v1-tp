@@ -9,5 +9,8 @@ class Message:
         self.port_elect = 0
 
     def message_send(self, leader_id, leader_port):
+        """
+        function to update value of class
+        """
         self.id_elect = leader_id
         self.port_elect = leader_port   
