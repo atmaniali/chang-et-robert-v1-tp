@@ -39,20 +39,17 @@ class Part_Out(threading.Thread):
             # Serialize your dict object
             data_string = json.dumps(data_as_dict)
 
-            print(f"data send jsson {data_string} ")
-            print(f"self.message.id_elect {self.elec.message.id_elect} == self.elec.leader_id {self.elec.leader_id} ")
+            print(f"Send Message {data_string} ")
             if self.elec.message.id_elect == self.elec.leader_id :
                 self.count += 1
-                print(f"leader is mm {self.count}")
+                print(f"count {self.count}")
             if self.count  == 20:
                 print(f"Leader is {self.elec.leader_id} port = {self.elec.leader_port}")
                 # self.s.send(b'')
                 break   
-            print("** BLOCK ** \n")
+            
             self.__flag.wait()
-            print("** SEND ** \n")
             self.s.send(data_string.encode(encoding="utf-8"))
-            print("** TURN TO FALSE ** \n")
             self.__flag.clear()
 
     def resume(self):
