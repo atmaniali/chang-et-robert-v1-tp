@@ -16,8 +16,10 @@ def verif_type_Port (input) -> bool:
         its_int = True
     except TypeError:  
         its_int = False 
+        print("type error")
     except ValueError :
-         its_int = False    
+         its_int = False
+         print("value error")    
     return its_int
 
 def verif_PORT_In_List (port) -> bool :
